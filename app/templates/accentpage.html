@@ -15,7 +15,7 @@
             <section class="uploaded-audio d-none">
                 <div class="icon"><i class="fas fa-file-audio"></i></div>
                 <p class="file-name"></p>
-                <a href="#" class="remove-audio"><i class="fas fa-trash-can"></i></a>
+                <span class="remove-audio" id="remove-audio"><i class="fas fa-trash-can"></i></span>
             </section>
             <section class="drag-and-drop">
                 <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
@@ -25,14 +25,39 @@
                 <input type="file" hidden>
             </section>
         </div>
+
+        <div class="delete-modal d-none" id="delete-modal">
+            <div class="modal-content">
+                <div class="delete-header">
+                    <i class="fas fa-circle-minus modal-header-icon"></i>
+                    <h4 class="modal-title w-100">Are you sure?</h4>
+                    <a class="close-modal" id="close-modal"><i class="fas fa-xmark"></i></a>
+                </div>
+                <div class="modal-body">
+                    <p>Do you really want to delete this audio? This action cannot be undone.</p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button class="btn btn-secondary" id="cancel-delete-btn" class="cancel-delete-btn">Cancel</button>
+                    <form action="{{url_for('deleteAudio')}}">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
         
         <div class="upload-check">
-                <div>
+            <p>Preview your recording below</p>
+                <div class="recording">
                     <ol id="recordingsList"></ol>
+                </div>
+                <div class="delete-microphone-recording d-none" id="delete-microphone-recording">
+                    <p>Press me to Delete the recording</p>
+                    <i class="fas fa-trash-can delete-mic-audio-icon"></i>
                 </div>
                 <div class="submit-audio d-none">
                     <p>Are you ready to submit?</p>
-                    <button type="submit" name="submit" id="submit">YES</button>
+                    <button type="submit" name="submit" id="submit"><i class="fas fa-check"></i></button>
                 </div>
                 
         </div>

@@ -125,6 +125,9 @@ def logout():
     return redirect(url_for('login'))
 
 
+@app.route('/delete-audio')
+def deleteAudio():
+    return redirect(url_for('identifier'))
 ###
 # The functions below should be applicable to all Flask apps.
 ###

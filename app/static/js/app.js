@@ -26,6 +26,11 @@ let file;
 
 var drag_drop = document.getElementsByClassName("drag-and-drop")[0];
 var uploaded_file = document.getElementsByClassName("uploaded-audio")[0];
+var removeAudioTrigger = document.getElementById("remove-audio");
+var deleteModal = document.getElementById("delete-modal");
+var cancelRemoveAudio = document.getElementById("cancel-delete-btn");
+var closeModal = document.getElementById("close-modal");
+var removeMphAudioTrigger = document.getElementById("delete-microphone-recording");
 
 button.onclick = ()=>{
     drag_input.click(); //if user click on the button then the input also clicked
@@ -155,7 +160,7 @@ function stopRecording() {
     //disable the stop button, enable the record too allow for new recordings 
     document.getElementById("stop").id = "submit";
     recordIcons.classList.remove("fas","fa-stop");
-    recordIcons.classList.add("fas", "fa-check");
+    recordIcons.classList.add("d-none");
     instructions.innerHTML = "INSTRUCTIONS: IF YOU ARE READY TO SUBMIT PRESS THE TICK BELOW.";
     //tell the recorder to stop the recording 
     rec.stop(); //stop microphone access 
@@ -163,6 +168,7 @@ function stopRecording() {
     //create the wav blob and pass it on to createDownloadLink 
     submit_btn.classList.add('microphone');
     submit_audio.classList.remove("d-none");
+    removeMphAudioTrigger.classList.remove("d-none");
     rec.exportWAV(createDownloadLink);
 }
 
@@ -207,3 +213,27 @@ function addRecording(url){
     $(recordingsList).empty();
     recordingsList.appendChild(li);
 };
+
+removeAudioTrigger.addEventListener("click", function(e){
+    e.preventDefault();
+    deleteModal.classList.remove("d-none");
+});
+
+removeMphAudioTrigger.addEventListener("click", function(e){
+    e.preventDefault();
+    deleteModal.classList.remove("d-none");
+});
+
+cancelRemoveAudio.addEventListener("click", function(e){
+    e.preventDefault();
+    deleteModal.classList.add("d-none");
+});
+
+closeModal.addEventListener("click", function(e){
+    e.preventDefault();
+    deleteModal.classList.add("d-none");
+});
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+});

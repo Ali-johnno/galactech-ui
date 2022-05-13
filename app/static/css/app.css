@@ -58,6 +58,9 @@ footer{
     height: 1rem;
 }
 
+.recorder{
+    padding-top: 15px;
+}
 
 .recorder-btn{
     border-radius: 50%;
@@ -69,8 +72,11 @@ footer{
     cursor: pointer;
     font-size: 100px;
     margin: 0;
+}
 
-    
+.recorder-btn i{
+    text-align: center;
+    margin: auto;
 }
 
 
@@ -128,9 +134,10 @@ footer{
 }
 
 #submit{
-    outline: none;
+    /* outline: none;
     background-color: #55D00A;
-    color: white;
+    color: white; */
+    display: none;
 }
 
 
@@ -216,7 +223,9 @@ height: 11rem;
 } */
 
 
-
+.audio-upload{
+    padding-top: 40px;
+}
 
 .audio-upload section{
    border: 2px dashed #00406E;
@@ -269,6 +278,8 @@ box-shadow: 0px 0px 20px rgb(102, 255, 255);
     margin-right: 0px !important;
     position: relative;
 }
+
+
 
 .change-display{
     margin-left: 0px !important;
@@ -329,9 +340,92 @@ box-shadow: 0px 0px 20px rgb(102, 255, 255);
 
 .submit-audio{
     display: flex;
+    gap: 30px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
 }
 
+.submit-audio button{
+    border-radius: 50%;
+    outline: none;
+    border: none;
+    /* padding:5%; */
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 15px;
+    margin: 0;
+}
 
+.submit-audio p{
+    margin: auto 0;
+}
 
+.recording{
+    padding-top: 50px;
+}
 
+#recordingsList{
+    list-style: none;
+}
 
+.delete-modal{
+    z-index: 1;
+    position: fixed;
+    background-color: #424242;
+    width: 100%;
+    height: 100%;
+    left:0;
+    top:0;
+    padding: 100px;
+}
+
+.modal-content{
+    margin: auto;
+    background-color: white;
+    height: auto;
+    width: 50%;
+    text-align: center;
+}
+
+.modal-header{
+    text-align:center;
+}
+
+.close-modal{
+    position: absolute;
+    font-size: 25px;
+    top: 10px;
+    right: 30px;
+}
+
+.close-modal i{
+    color:#00406E;
+}
+
+.close-modal:hover i{
+    color: red;
+    cursor: pointer;
+}
+
+.modal-header-icon{
+    font-size: 60px;
+    color: rgb(250, 81, 81);
+}
+
+.delete-header{
+    padding: 16px;
+}
+
+.delete-header h4{
+    padding-top: 15px;
+}
+
+.delete-mic-audio-icon{
+    font-size: 20px;
+}
+
+.delete-mic-audio-icon:hover{
+    color: rgb(250, 81, 81);
+}
