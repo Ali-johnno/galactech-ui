@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div>
+    <h1>GALACTECH ACCENT IDENTIFICATION SYSTEM</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+        incididunt ut labore et dolore 
+        magna aliqua. Ut enim ad minim veniam, quis nostrud 
+        exercitation ullamco laboris nisi ut aliquip ex ea commodo 
+        consequat. Duis aute irure dolor in reprehenderit in 
+        voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+</div>
+<div>
+    <h3>Our Team</h3>
+    <div class="team-galactech">
+        <div>
+            <img src="{{url_for('static',filename='iconf1.png')}}" class="team-profile-icon">
+            <h4>Kalia-Lee Rodney</h4>
+            <h4>Project Manager</h4>
+        </div>
+        <div>
+            <img src="{{url_for('static',filename='iconf2.png')}}" class="team-profile-icon">
+            <h4>Alexandria Burnett</h4>
+            <h4>Programmer</h4>
+        </div>
+        <div>
+            <img src="{{url_for('static',filename='iconf3.png')}}" class="team-profile-icon">
+            <h4>Aaliyah Johnston</h4>
+            <h4>UX/UI Developer</h4>
+        </div>
+        <div>
+            <img src="{{url_for('static',filename='iconm1.png')}}" class="team-profile-icon">
+            <h4>Jamar Lee</h4>
+            <h4>Programmer</h4>
+        </div>
+    </div>
+</div>
+{% endblock %}

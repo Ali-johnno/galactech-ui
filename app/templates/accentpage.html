@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div id="accent-page">
+    <div>
+        <h1>GALACTECH ACCENT IDENTIFICATION SYSTEM</h1>
+        <p id="instructions">INSTRUCTIONS: TO USE THE RECORDER PLEASE CLICK THE MIC BELOW OR UPLOAD A FILE</p>
+    </div>
+    <div>
+        <div class="recorder">
+            <button class= "recorder-btn" id="mic"><i class="recorder-icons fas fa-microphone"></i></button>
+        </div>
+        
+        <div class="audio-upload">
+            <section class="uploaded-audio d-none">
+                <div class="icon"><i class="fas fa-file-audio"></i></div>
+                <p class="file-name"></p>
+                <a href="#" class="remove-audio"><i class="fas fa-trash-can"></i></a>
+            </section>
+            <section class="drag-and-drop">
+                <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                <header>Drag & Drop to Upload File</header>
+                <span>OR</span>
+                <button type="submit" name="submit" class="btn btn-primary">Browse File</button>
+                <input type="file" hidden>
+            </section>
+        </div>
+        
+        <div class="upload-check">
+                <div>
+                    <ol id="recordingsList"></ol>
+                </div>
+                <div class="submit-audio d-none">
+                    <p>Are you ready to submit?</p>
+                    <button type="submit" name="submit" id="submit">YES</button>
+                </div>
+                
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

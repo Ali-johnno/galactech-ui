@@ -1,0 +1,34 @@
+{% if current_user.is_authenticated %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+  <a class="navbar-brand" href="#"><img src="{{url_for('static', filename='website logo.png')}}" id="website_logo"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+ 
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('home') }}">HOME</a>
+      </li>  
+      <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('about') }}">ABOUT US</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('identifier') }}">IDENTIFIER</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('profile') }}"><img src="{{url_for('static',filename='profile.png')}}" id="viewer-profile"></a>
+        </li>   
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('logout') }}"><img src="{{url_for('static',filename='logout.png')}}" id="logout-icon"></a>
+          </li>
+          
+        
+        
+    </ul>
+  </div>
+  
+</nav>
+
+{% endif %}

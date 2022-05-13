@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block main %}
+<h1 id="profile-header">Your Profile</h1>
+<div class="profile-div">
+    <div class="profile-letter-bg">
+        <h1>{{user.full_name[0]|upper}}</h1>
+    </div>
+    <div class="user-details">
+        <p>Name: {{user.full_name}}</p>
+        <p>Username: {{user.username}}</p>
+        <p>Email: {{user.email}}</p>
+        <p>Date of Birth: {{user.date_of_birth.strftime('%d/%m/%Y')}}</p>
+        <div><a href="#">Change Password</a></div>
+    </div>
+    
+</div>
+{% endblock %}

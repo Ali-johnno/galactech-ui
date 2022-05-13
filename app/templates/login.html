@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+  <div class="login-form center-block">
+    
+    
+    <form action="{{ url_for('login') }}" method="post">
+      {{ form.csrf_token }}
+      <img class='loginlogo' src="{{url_for('static',filename='logo_website.png')}}"/>
+      <h2>LOGIN</h2>
+      <div class="form-group">
+        {{ form.username(class='form-control ', placeholder="Username") }}
+      </div>
+      
+      <div class="form-group">
+        {{ form.password(class='form-control', placeholder="Password") }}
+      </div>
+      <div class="forget-password">
+        <a href="#" >Forget Password?</a>
+      </div>
+     
+      <div class="text-center">
+        <button type="submit" name="submit" class="btn btn-primary">  SIGN IN  </button>
+        <p>Don't have an account? <a href="{{url_for('signup')}}">Sign Up</a></p>
+      </div>
+    </form>
+  </div>
+{% endblock %}

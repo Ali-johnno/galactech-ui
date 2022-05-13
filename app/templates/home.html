@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div class="home">
+    <div>
+        <h1>GALACTECH ACCENT IDENTIFICATION SYSTEM</h1>
+        <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h3>
+    </div>
+    <div class="homepage-btn-group">
+        <a href="{{url_for('about')}}"><input type="button" value="ABOUT US" class="btn btn-primary"></a> 
+        <a href="{{url_for('identifier')}}"><input type="button" value="START NOW" class="btn btn-primary"></a> 
+    </div>
+          
+</div>
+{% endblock %}
