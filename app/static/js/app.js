@@ -162,6 +162,7 @@ function stopRecording() {
     gumStream.getAudioTracks()[0].stop();
     //create the wav blob and pass it on to createDownloadLink 
     submit_btn.classList.add('microphone');
+    submit_audio.classList.remove("d-none");
     rec.exportWAV(createDownloadLink);
 }
 
