@@ -14,7 +14,7 @@ var recordIcons = document.getElementsByClassName("recorder-icons")[0];
 var submit_audio = document.getElementsByClassName("submit-audio")[0];
 var stopButton;
 var instructions = document.getElementById("instructions");
-var submit_btn = document.getElementById("submit");
+var submit_btn = document.getElementById("submit-recording");
 var audioUpload = document.getElementsByClassName("audio-upload")[0];
 //add events to those 3 buttons 
 const uploadURL = "/upload";
@@ -120,7 +120,7 @@ var constraints = {
     recordIcons.classList.add("fas" ,"fa-stop");
 	stopButton.removeEventListener("click",startRecording);
 	stopButton.addEventListener("click", stopRecording);
-    instructions.innerHTML = "INSTRUCTIONS: TO STOP RECORDING PRESS THE STOP BUTTON BELOW. RECORDING STOPS AFTER 2 MINUTES.";
+    instructions.innerHTML = "INSTRUCTIONS: TO STOP RECORDING PRESS THE STOP BUTTON BELOW.";
     audioUpload.style.display = "none";
 
 
@@ -167,8 +167,8 @@ function stopRecording() {
     gumStream.getAudioTracks()[0].stop();
     //create the wav blob and pass it on to createDownloadLink 
     submit_btn.classList.add('microphone');
-    submit_audio.classList.remove("d-none");
-    removeMphAudioTrigger.classList.remove("d-none");
+    var submit_div = document.getElementById('upload-div');
+    submit_div.classList.remove("d-none");
     rec.exportWAV(createDownloadLink);
 }
 

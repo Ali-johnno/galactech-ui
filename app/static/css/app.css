@@ -134,12 +134,18 @@ footer{
 }
 
 #submit{
-    /* outline: none;
-    background-color: #55D00A;
-    color: white; */
     display: none;
 }
 
+#stop i{
+    font-size: 145px;
+}
+
+#submit-recording{
+    outline: none;
+    background-color: #55D00A;
+    color: white;
+}
 
 .forget-password{
     text-align: right;
@@ -428,4 +434,5 @@ box-shadow: 0px 0px 20px rgb(102, 255, 255);
 
 .delete-mic-audio-icon:hover{
     color: rgb(250, 81, 81);
+    cursor: pointer;
 }
