@@ -29,6 +29,7 @@
     {%endif%}
     <main>
         <div class="container">
+          {% include 'flash_messages.html' %}
             {% block main %}{% endblock %}
         </div>
     </main>

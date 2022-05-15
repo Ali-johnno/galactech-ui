@@ -1,5 +1,15 @@
 {% extends "base.html" %}
 
 {% block main %}
-
+<div class="results-page">
+    <div class="results-header">
+        <h1>GALACTECH ACCENT IDENTIFICATION SYSTEM</h1>
+    </div>
+    <div class="accent-identified">
+        <p>THE ACCENT IDENTIFIED IS A {{accent}} ACCENT</p>
+    </div>
+    <div class="try-again">
+        <a href="{{url_for('identifier')}}"><button class="btn btn-primary">TRY AGAIN</button></a>
+    </div>
+</div>
 {% endblock %}

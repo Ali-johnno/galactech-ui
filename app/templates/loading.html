@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div class="loading-page" id="loading-page">
+    <div class="loading-page-content">
+        <img src="{{url_for('static', filename='spinner.gif')}}">
+        <p>Audio Recording is processing ...</p>
+    </div>
+</div>
+{%endblock%}

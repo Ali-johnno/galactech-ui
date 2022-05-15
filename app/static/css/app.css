@@ -3,6 +3,10 @@ body {
     font-family: 'Lato', sans-serif;
 }
 
+header i{
+    font-size: 18px;
+}
+
 .homebackground{
     background-image: url(../background.png/);
     background-position: center;
@@ -60,6 +64,24 @@ footer{
 
 .recorder{
     padding-top: 15px;
+    padding-bottom: 25px;
+}
+
+.timer h1{
+    font-weight: 700;
+    font-size: 80px;
+}  
+
+.timer-ending h1{
+    animation:end-blinking 1.5s infinite;
+}
+
+@keyframes end-blinking{
+    0%{   color: red;   }
+    47%{   color: #000; }
+    62%{   color: transparent; }
+    97%{   color:transparent; }
+    100%{  color: #000;   }
 }
 
 .recorder-btn{
@@ -71,12 +93,14 @@ footer{
     height: 12rem;
     cursor: pointer;
     font-size: 100px;
-    margin: 0;
+    margin: auto;
+    display: flex;
 }
 
 .recorder-btn i{
-    text-align: center;
-    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -84,13 +108,10 @@ footer{
     box-shadow: 0 0 0 0 rgb(253, 128, 128, 0.7);
 	transform: scale(1);
 	animation: pulse 2s infinite;
+    width: 17rem;
+    height: 17rem;
 }
 
-.recorder-btn i{
-    display: flex;
-    justify-content: center;
-    align-items: center;  
-}
 
 @keyframes pulse {
 	0% {
@@ -122,30 +143,30 @@ footer{
     background-color: #016a97;
 }
 
+
 #stop{
     outline: none;
     background-color: #fa97a4;
     color: red;
 }
 
+#stop i{
+    font-size: 200px;
+}
+
 #stop:hover{
     background-color: #f36a7c;
-    color: white;
+    color: rgb(109, 0, 0);
 }
 
 #submit{
-    display: none;
-}
-
-#stop i{
-    font-size: 145px;
-}
-
-#submit-recording{
+    color: #009BDE;
     outline: none;
-    background-color: #55D00A;
-    color: white;
+    font-size: 170px;
+    background-color: white;
 }
+
+
 
 .forget-password{
     text-align: right;
@@ -164,6 +185,48 @@ footer{
 }
 
 
+
+.home h1{
+    font-weight: 900;
+    font-size: 50px;
+    margin-bottom: 12px;
+}
+
+.home h3{
+    font-weight: 100;
+    font-style: italic;
+    font-size: 30px;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.homepage-btn-group{
+    padding-top: 15px;
+}
+
+.homepage-btn-group input{
+    width: 160px;
+    padding: 5px;
+    border-radius: 3px;
+    outline: none;
+    border: none;
+    color: white;
+    background-color: #00406E;
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 20px;
+}
+
+/* fix the hover for the buttons */
+.about-btn:hover, .start-now-btn:hover{
+    background-color: #0978c7;
+}
+
+.about-btn{
+    margin-right: 30px;
+}
+
+
 .team-galactech{
     text-align: center;
     display: grid;
@@ -171,9 +234,45 @@ footer{
     grid-gap: 30px;
 }
 
+.about-system h1{
+    font-weight: 700;
+    color: #00406E;
+}
+
+.about-system p{
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 2.5;
+}
+
+.about-team{
+    margin-top: 20px;
+}
+
+.about-team h3{
+    color: #00406E;
+    font-weight: 700;
+    font-size: 35px;
+}
+
 .team-profile-icon{
 width: 11rem;
 height: 11rem;
+margin-top: 10px;
+margin-bottom: 15px;
+}
+
+.team-name{
+    font-size: 25px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.team-role{
+    font-size: 20px;
+    font-weight: 300;
+    margin: 0;
+
 }
 
 .profile-div{
@@ -185,8 +284,15 @@ height: 11rem;
     width: 80%;
 }
 
-#profile-header{
+#profile-header, .previous-accents h1{
     text-align: center;
+    font-weight: 700;
+    color: #00406E;
+    margin-bottom: 35px;
+}
+
+.previous-accents{
+    margin-top: 50px;
 }
 
 
@@ -222,15 +328,13 @@ height: 11rem;
     margin: auto 25px;
     line-height: 1.5;
     font-size: 20px;
+    letter-spacing: 3px;
 }
 
-/* .profile-letter-bg h1{
-   padding: 50%;
-} */
 
 
 .audio-upload{
-    padding-top: 40px;
+    padding-top: 25px;
 }
 
 .audio-upload section{
@@ -296,7 +400,7 @@ box-shadow: 0px 0px 20px rgb(102, 255, 255);
 }
 
 .change-display-two section{
-    height: 170px !important;
+    height: 220px !important;
 }
 
 .change-display-two .drag-and-drop{
@@ -352,16 +456,14 @@ box-shadow: 0px 0px 20px rgb(102, 255, 255);
     align-items: center;
 }
 
+.submit-audio p{
+    font-weight: 400;
+    font-size: 20px;
+}
+
 .submit-audio button{
-    border-radius: 50%;
     outline: none;
     border: none;
-    /* padding:5%; */
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    font-size: 15px;
-    margin: 0;
 }
 
 .submit-audio p{
@@ -374,6 +476,7 @@ box-shadow: 0px 0px 20px rgb(102, 255, 255);
 
 #recordingsList{
     list-style: none;
+    padding-left: 0;
 }
 
 .delete-modal{
@@ -428,11 +531,97 @@ box-shadow: 0px 0px 20px rgb(102, 255, 255);
     padding-top: 15px;
 }
 
-.delete-mic-audio-icon{
+
+.loading-page{
+    z-index: 1;
+    position: fixed;
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    left:0;
+    top:0;
+    padding: 100px;
+}
+
+.loading-page-content{
+    margin: auto;
+    height: auto;
+    width: 50%;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.loading-page-content img{
+    height: 300px;
+    width: 300px;
+}
+
+.loading-page-content p{
+    font-size: 40px;
+    font-weight: 400;
+    letter-spacing: 3px;
+}
+
+
+.max-size{
+    color: rgb(192, 191, 191);
+    font-size: 15px;
+    font-weight: 100;
+    padding-top: 10px;
+    margin-bottom: 0;
+}
+
+.flash_messages{
+    z-index: 1;
+    position: fixed;
+    width: 80%;
+}
+
+.results-page{
+    text-align: center;
+}
+
+.results-header h1{
+    font-weight: 700;
+    color: #00406E;
+}
+
+.accent-identified{
+    font-weight: 100;
+    font-size: 40px;
+}
+
+.recorder-header h1{
+    font-weight: 700;
+    color: #00406E;
+}
+
+#instructions{
+    font-weight: 400;
     font-size: 20px;
 }
 
-.delete-mic-audio-icon:hover{
-    color: rgb(250, 81, 81);
-    cursor: pointer;
+.recording p{
+    font-weight: 100;
+    font-size: 18px;
+}
+
+.upload-btn-group{
+    display: flex;
+    justify-content: center;
+}
+
+.delete-microphone-recording{
+    margin-right: 50px;
+}
+
+.js-error-message{
+    font-size: 15px;
+    font-weight: 100;
+    color: red;
+    margin-bottom: 0;
 }

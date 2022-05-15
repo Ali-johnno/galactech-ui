@@ -30,7 +30,7 @@ class SignUpForm(FlaskForm):
     )
 
     dateofbirth = DateField(
-            'Date',
+            'Date of Birth',
             validators=[DataRequired()])
     
     password = PasswordField('Password',

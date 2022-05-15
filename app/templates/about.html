@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block main %}
-<div>
+<div class="about-system">
     <h1>GALACTECH ACCENT IDENTIFICATION SYSTEM</h1>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
         incididunt ut labore et dolore 
@@ -10,28 +10,28 @@
         consequat. Duis aute irure dolor in reprehenderit in 
         voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
 </div>
-<div>
+<div class="about-team">
     <h3>Our Team</h3>
     <div class="team-galactech">
         <div>
             <img src="{{url_for('static',filename='iconf1.png')}}" class="team-profile-icon">
-            <h4>Kalia-Lee Rodney</h4>
-            <h4>Project Manager</h4>
+            <p class="team-name"><strong>Kalia-Lee Rodney</strong></p>
+            <p class="team-role">Project Manager</p>
         </div>
         <div>
             <img src="{{url_for('static',filename='iconf2.png')}}" class="team-profile-icon">
-            <h4>Alexandria Burnett</h4>
-            <h4>Programmer</h4>
+            <p class="team-name"><strong>Alexandria Burnett</strong></p>
+            <p class="team-role">Programmer</p>
         </div>
         <div>
             <img src="{{url_for('static',filename='iconf3.png')}}" class="team-profile-icon">
-            <h4>Aaliyah Johnston</h4>
-            <h4>UX/UI Developer</h4>
+            <p class="team-name"><strong>Aaliyah Johnston</strong></p>
+            <p class="team-role">UX/UI Developer</p>
         </div>
         <div>
             <img src="{{url_for('static',filename='iconm1.png')}}" class="team-profile-icon">
-            <h4>Jamar Lee</h4>
-            <h4>Programmer</h4>
+            <p class="team-name"><strong>Jamar Lee</strong></p>
+            <p class="team-role">Programmer</p>
         </div>
     </div>
 </div>

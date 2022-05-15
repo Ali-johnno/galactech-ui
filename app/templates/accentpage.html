@@ -2,13 +2,16 @@
 
 {% block main %}
 <div id="accent-page">
-    <div>
+    <div class="recorder-header">
         <h1>GALACTECH ACCENT IDENTIFICATION SYSTEM</h1>
         <p id="instructions">INSTRUCTIONS: TO USE THE RECORDER PLEASE CLICK THE MIC BELOW OR UPLOAD A FILE</p>
     </div>
     <div>
         <div class="recorder">
             <button class= "recorder-btn" id="mic"><i class="recorder-icons fas fa-microphone"></i></button>
+        </div>
+        <div class="timer d-none" id="timer">
+            <h1>00:00</h1>
         </div>
         
         <div class="audio-upload">
@@ -23,6 +26,8 @@
                 <span>OR</span>
                 <button type="submit" name="submit" class="btn btn-primary">Browse File</button>
                 <input type="file" hidden>
+                <p class="max-size">Max File Size: 25 MB | Allowed Extensions: ogg, mp4, webm, mpeg, mp3, wav</p>
+                <p class="js-error-message d-none" id="js-error-message"></p>
             </section>
         </div>
 
@@ -46,23 +51,21 @@
             </div>
         </div>
         
-        <div class="upload-div d-none" id="upload-div">
-            <p>Preview your recording below</p>
-                <div class="recording">
+        <div class="upload-div" id="upload-div">
+                <div class="recording d-none ">
+                    <p>Preview your recording below</p>
                     <ol id="recordingsList"></ol>
                 </div>
-                <div class="delete-microphone-recording" id="delete-microphone-recording">
-                    <p>Press me to Delete the recording</p>
-                    <i class="fas fa-trash-can delete-mic-audio-icon"></i>
-                </div>
-                <div class="submit-audio">
-                    <p>Are you ready to submit?</p>
-                    <button type="submit" name="submit" id="submit-recording"><i class="fas fa-check"></i></button>
-                </div>
-                
+                <div class="upload-btn-group">
+                    <div class="delete-microphone-recording d-none" id="delete-microphone-recording">
+                        <button  class="btn btn-danger delete-mic-audio-icon">DELETE</button>
+                    </div>
+                    <div class="submit-audio d-none">
+                        <button type="submit" name="submit" id="submit-recording" class="btn btn-success">SUBMIT</button>
+                    </div>
+                </div>     
         </div>
     </div>
-
 </div>
 
 {% endblock %}
