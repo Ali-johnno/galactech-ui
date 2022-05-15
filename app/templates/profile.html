@@ -11,14 +11,52 @@
         <p><strong>Username:</strong> {{user.username}}</p>
         <p><strong>Email:</strong> {{user.email}}</p>
         <p><strong>Date of Birth:</strong> {{user.date_of_birth.strftime('%d/%m/%Y')}}</p>
-        <div><a href="#">Change Password</a></div>
     </div>
 </div>
 <div>
     <div class="previous-accents">
         <h1>Previous Accents Identified</h1>
         <!-- if table empty put there are none else -->
-        <p>You have no previous accents identified.</p>
+        <!-- You have no previous accents identified. -->
+        <p>Only the 5 recent accents identified are shown.</p>
+        <table class="table">
+            <tr>
+                <th></th>
+                <th>Date</th>
+                <th>Audio File</th>
+                <th>Accent Identified</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>12/05/2022</td>
+                <td><audio controls><source src="{{url_for('static',filename='audio_record_Yvg1DQG.wav')}}" type="audio/wav"></audio></td>
+                <td>Jamaican</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>14/05/2022</td>
+                <td><audio controls><source src="{{url_for('static',filename='audio_record_Yvg1DQG.wav')}}" type="audio/wav"></td>
+                <td>Trinidadian</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>14/05/2022</td>
+                <td><audio controls><source src="{{url_for('static',filename='audio_record_Yvg1DQG.wav')}}" type="audio/wav"></td>
+                <td>Jamaican</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>16/05/2022</td>
+                <td><audio controls><source src="{{url_for('static',filename='audio_record_Yvg1DQG.wav')}}" type="audio/wav"></td>
+                <td>Trinidadian</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>16/05/2022</td>
+                <td><audio controls><source src="{{url_for('static',filename='audio_record_Yvg1DQG.wav')}}" type="audio/wav"></td>
+                <td>Trinidadian</td>
+            </tr>
+          </table>
     </div>
 </div>
 {% endblock %}

@@ -231,9 +231,6 @@ submit_btn.addEventListener("click", function(){
     });
 });
 
-// console.log("loading");
-// var load_btn = document.getElementById("loading-page");
-// load_btn.classList.remove("d-none");
 
 function addRecording(url){
     var url = URL.createObjectURL(url);
