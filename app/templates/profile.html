@@ -18,6 +18,7 @@
         <h1>Previous Accents Identified</h1>
         <!-- if table empty put there are none else -->
         <!-- You have no previous accents identified. -->
+        {%if recordings%}
         <p>Only the 5 recent accents identified are shown.</p>
         <table class="table">
             <tr>
@@ -26,37 +27,18 @@
                 <th>Audio File</th>
                 <th>Accent Identified</th>
             </tr>
+            {%for record in recordings%}
             <tr>
-                <td>1</td>
-                <td>12/05/2022</td>
-                <td><audio controls><source src="{{url_for('static',filename='audio_record_Yvg1DQG.wav')}}" type="audio/wav"></audio></td>
-                <td>Jamaican</td>
+                <td>{{record.id}}</td>
+                <td>{{record.date.strftime('%m/%d/%Y')}}</td>
+                <td><audio controls><source src="{{url_for('getRecording',filename=record.recording)}}" type="audio/wav"></audio></td>
+                <td>{{record.accent}}</td>
             </tr>
-            <tr>
-                <td>2</td>
-                <td>14/05/2022</td>
-                <td><audio controls><source src="{{url_for('static',filename='audio_record_Yvg1DQG.wav')}}" type="audio/wav"></td>
-                <td>Trinidadian</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>14/05/2022</td>
-                <td><audio controls><source src="{{url_for('static',filename='audio_record_Yvg1DQG.wav')}}" type="audio/wav"></td>
-                <td>Jamaican</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>16/05/2022</td>
-                <td><audio controls><source src="{{url_for('static',filename='audio_record_Yvg1DQG.wav')}}" type="audio/wav"></td>
-                <td>Trinidadian</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>16/05/2022</td>
-                <td><audio controls><source src="{{url_for('static',filename='audio_record_Yvg1DQG.wav')}}" type="audio/wav"></td>
-                <td>Trinidadian</td>
-            </tr>
+            {%endfor%}
           </table>
+        {%else%}
+        <p>You have no previous accents identified.</p>
+        {%endif%}
     </div>
 </div>
 {% endblock %}

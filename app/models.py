@@ -1,5 +1,6 @@
 from . import db
 from werkzeug.security import generate_password_hash
+from datetime import datetime
 
 class UserProfile(db.Model):
     
@@ -36,4 +37,22 @@ class UserProfile(db.Model):
         self.username = username
         self.date_of_birth = date_of_birth
         self.password = generate_password_hash(password)
+
+
+class Recordings(db.Model):
+
+    __tablename__ = 'recordings'
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    date = db.Column(db.DateTime, nullable=False, default=datetime.now)
+    username = db.Column(db.String(80))
+    recording = db.Column(db.String(255))
+    accent = db.Column(db.String(80))
+
+    def __init__(self, username, recording, accent):
+        self.username = username
+        self.recording = recording
+        self.accent = accent
+
+
 

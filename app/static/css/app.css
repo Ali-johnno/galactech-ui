@@ -675,3 +675,10 @@ table{
 .table tbody tr td:nth-last-child(1) {
 	border-radius: 0 5px 5px 0;
 }
+
+.try-again button{
+    font-size: 30px;
+    width: auto;
+    height: auto;
+    padding: auto;
+}

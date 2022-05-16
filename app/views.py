@@ -7,6 +7,7 @@ This file creates your application.
 from logging import log
 
 import os
+from sqlalchemy import asc
 from pickle import FALSE, TRUE
 import random, string
 from time import sleep
@@ -16,7 +17,7 @@ from flask import render_template, request, redirect, url_for, flash, session, a
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.utils import secure_filename
 from werkzeug.security import check_password_hash 
-from app.models import UserProfile
+from app.models import UserProfile, Recordings
 from .forms import SignUpForm, LoginForm
 from mimetypes import guess_extension
 from sqlalchemy.exc import  IntegrityError
@@ -35,8 +36,8 @@ def home():
 def profile():
     username = session['username']
     user = db.session.query(UserProfile).filter(UserProfile.username == username).first()
-    password = user.password
-    return render_template('profile.html', user=user, password=password)
+    recordings = db.session.query(Recordings).filter(Recordings.username == username).order_by(asc(Recordings.date)).limit(5).all()
+    return render_template('profile.html', user=user, recordings=recordings)
 
 @app.route('/about/')
 @login_required
@@ -63,6 +64,9 @@ def upload():
             filename = secure_filename(f'audio_record_{x}{extname}')
             dst = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(dst)
+            recording = Recordings(session['username'], f'audio_record_{x}{extname}',"JAMAICAN")
+            db.session.add(recording)
+            db.session.commit()
     return render_template('accentpage.html')
 
 @app.route('/loading',methods=['GET'])
@@ -121,6 +125,14 @@ def logout():
 def deleteAudio():
     flash('Recording Deleted','success')
     return redirect(url_for('identifier'))
+
+@app.route('/recording/<filename>')
+@login_required
+def getRecording(filename):
+    print(filename)
+    root_dir = os.getcwd()
+    return send_from_directory(os.path.join(root_dir, app.config['UPLOAD_FOLDER']),  filename)
+
 ###
 # The functions below should be applicable to all Flask apps.
 ###
