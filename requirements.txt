@@ -22,3 +22,16 @@ WTForms==3.0.1
 # Production Server
 # ----------------------
 gunicorn
+
+# ----------------------
+# Tensorflow, Keras etc.
+# ----------------------
+tensorflow
+keras
+numpy==1.21
+librosa
+scipy
+scikit-learn
+scipy
+matplotlib
+random2
