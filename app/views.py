@@ -139,7 +139,6 @@ def signup():
                 return redirect(url_for('login'))
             except IntegrityError:
                 flash('Username already exists','danger')
-        flash_errors(form)
     return render_template('signup.html',form=form, background="homebackground")
 
 

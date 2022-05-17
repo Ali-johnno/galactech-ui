@@ -75,7 +75,7 @@ dropArea.addEventListener("drop", (event)=>{
 
 function showFile(){
 let fileType = file.type; //getting selected file type
-let validExtensions = ["video/ogg", "video/mp4","video/webm" ,"audio/ogg", "audio/mpeg", "audio/mp3", "audio/wav"]; 
+let validExtensions = ["audio/wav"]; 
 let size = file.size/1024/1024;
 var error_div = document.getElementById("js-error-message");
 
@@ -97,7 +97,7 @@ if(validExtensions.includes(fileType) &&  (size < 25)){ //if user selected file 
         console.log("File size too big! File must be 25 MB or smaller");
         error_div.innerHTML = "File size too big! File must be 25 MB or smaller";
     } else {
-        console.log("File must be an audio or video file!");
+        console.log("File must be a wav file!");
         error_div.innerHTML = "File must be audio or video file!"
     }
     dropArea.classList.remove("active");
@@ -217,8 +217,7 @@ submit_btn.addEventListener("click", function(){
         console.log("microphone audio selected");
         formData.append("audio_file", microphone_blob, "audio_file");
     }
-    console.log(formData);
-    console.log(file);
+    
     $.ajax({
         type: 'POST',
         url: 'http://localhost:8080/upload',
@@ -263,10 +262,6 @@ cancelRemoveAudio.addEventListener("click", function(e){
 closeModal.addEventListener("click", function(e){
     e.preventDefault();
     deleteModal.classList.add("d-none");
-});
-
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip()
 });
 
 window.setTimeout(function() {
