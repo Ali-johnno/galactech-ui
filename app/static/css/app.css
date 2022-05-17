@@ -89,18 +89,9 @@ footer{
     outline: none;
     border: none;
     padding:5%;
-    width: 12rem;
-    height: 12rem;
     cursor: pointer;
-    font-size: 100px;
     margin: auto;
     display: flex;
-}
-
-.recorder-btn i{
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 
@@ -108,8 +99,6 @@ footer{
     box-shadow: 0 0 0 0 rgb(253, 128, 128, 0.7);
 	transform: scale(1);
 	animation: pulse 2s infinite;
-    width: 17rem;
-    height: 17rem;
 }
 
 
@@ -121,7 +110,7 @@ footer{
 
 	70% {
 		transform: scale(1);
-		box-shadow: 0 0 0 10px rgb(253, 128, 128, 0);
+		box-shadow: 0 0 0 20px rgb(253, 128, 128, 0);
 	}
 
 	100% {
@@ -137,6 +126,14 @@ footer{
     outline: none;
     background-color: #009BDE;
     color: white;
+    height: 200px;
+    width: 200px;
+    display: inline-block;
+}
+
+#mic i{
+    text-align: center;
+    font-size: 100px;
 }
 
 #mic:hover{
@@ -148,29 +145,31 @@ footer{
     outline: none;
     background-color: #fa97a4;
     color: red;
-}
-
-#stop i{
-    font-size: 200px;
+    height: 300px;
+    width: 300px;
+    display: inline-block;
 }
 
 #stop:hover{
-    background-color: #f36a7c;
-    color: rgb(109, 0, 0);
+    color: rgb(135, 0, 0);
 }
+
+#stop i{
+    text-align: center;
+    font-size: 200px;
+}
+
+
+
 
 #submit{
     color: #009BDE;
     outline: none;
-    font-size: 170px;
+    font-size: 200px;
     background-color: white;
+    padding: 0;
 }
 
-
-
-.forget-password{
-    text-align: right;
-}
 
 .home{
     text-align: center;
@@ -217,7 +216,6 @@ footer{
     font-size: 20px;
 }
 
-/* fix the hover for the buttons */
 .about-btn:hover, .start-now-btn:hover{
     background-color: #0978c7;
 }
@@ -438,6 +436,7 @@ box-shadow: 0px 0px 20px rgb(102, 255, 255);
     opacity: 0;
     font-size: 22px;
     color: white;
+    cursor: pointer;
 }
 
 .remove-audio:hover i{

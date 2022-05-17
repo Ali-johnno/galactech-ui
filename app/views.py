@@ -4,6 +4,7 @@ Jinja2 Documentation:    http://jinja.pocoo.org/2/documentation/
 Werkzeug Documentation:  http://werkzeug.pocoo.org/documentation/
 This file creates your application.
 """
+from email.mime import audio
 from logging import log
 
 import os
@@ -61,13 +62,20 @@ def upload():
                 abort(400)
             print(extname)
             x = ''.join(random.choices(string.ascii_letters + string.digits, k=7))
+            session['sessionaudio'] = f'audio_record_{x}{extname}'
             filename = secure_filename(f'audio_record_{x}{extname}')
             dst = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(dst)
             recording = Recordings(session['username'], f'audio_record_{x}{extname}',"JAMAICAN")
             db.session.add(recording)
             db.session.commit()
-    return render_template('accentpage.html')
+    accent = 'Trinidadian'.upper()
+    print(session['sessionaudio'])
+    return render_template('results.html', accent=accent)
+
+def convert_files():
+    audioFile = 'idk'
+    return audioFile
 
 @app.route('/loading',methods=['GET'])
 @login_required
@@ -106,6 +114,7 @@ def signup():
                 person = UserProfile(request.form['fullname'], request.form['username'],request.form['email'],request.form['dateofbirth'],request.form['password'])
                 db.session.add(person)
                 db.session.commit()
+                return redirect(url_for('login'))
             except IntegrityError:
                 flash('Username already exists','danger')
     return render_template('signup.html',form=form, background="homebackground")

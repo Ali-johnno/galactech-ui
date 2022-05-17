@@ -207,7 +207,8 @@ function createDownloadLink(blob) {
 
 submit_btn.addEventListener("click", function(){
     console.log("submit");
-    
+    loading_page = document.getElementById('loading-page');
+    loading_page.classList.remove('d-none');
     let formData = new FormData();
     if (submit_btn.classList.contains("drag-or-browse") === true){
         console.log("drag or browse selected");
@@ -226,7 +227,7 @@ submit_btn.addEventListener("click", function(){
         contentType: false,
         success: function (response){
             console.log("audio file sent to flask");
-            window.location.href = "results";
+            window.location.href = "upload";
         }
     });
 });
