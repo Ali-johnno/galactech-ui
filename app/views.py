@@ -70,6 +70,9 @@ def upload():
             recording = Recordings(session['username'], f'audio_record_{x}{extname}',"JAMAICAN")
             db.session.add(recording)
             db.session.commit()
+    # insert your code here
+    # session['sessionaudio] is what contains the audio recording reference
+    # thinking of creating a function called get file that gets the actual recording if the session variable doesnt do anything
     accent = 'Trinidadian'.upper()
     print(session['sessionaudio'])
     return render_template('results.html', accent=accent)
