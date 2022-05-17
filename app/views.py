@@ -39,7 +39,7 @@ def home():
 def profile():
     username = session['username']
     user = db.session.query(UserProfile).filter(UserProfile.username == username).first()
-    recordings = db.session.query(Recordings).filter(Recordings.username == username).order_by(asc(Recordings.date)).limit(5).all()
+    recordings = db.session.query(Recordings).filter(Recordings.username == username).order_by(asc(Recordings.date)).all()[-5:]
     return render_template('profile.html', user=user, recordings=recordings)
 
 @app.route('/about/')
@@ -68,13 +68,7 @@ def upload():
             filename = secure_filename(f'audio_record_{x}{extname}')
             dst = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(dst)
-            recording = Recordings(session['username'], f'audio_record_{x}{extname}',"JAMAICAN")
-            db.session.add(recording)
-            db.session.commit()
-    # insert your code here
-    # session['sessionaudio] is what contains the audio recording reference
-    # thinking of creating a function called get file that gets the actual recording if the session variable doesnt do anything
-    print(session['sessionaudio'])
+    # prediction code here
     root_dir = os.getcwd()
     audio =  os.path.join(root_dir, app.config['UPLOAD_FOLDER'],  session['sessionaudio'])
     fin=single_file_preprocessing(audio)
@@ -84,7 +78,9 @@ def upload():
         accent='Trinidadian'.upper()
     else:
         accent = 'Jamaican'.upper()
-    
+    recording = Recordings(session['username'], session['sessionaudio'],accent)
+    db.session.add(recording)
+    db.session.commit()
     return render_template('results.html', accent=accent)
 
 def convert_files():
@@ -143,6 +139,7 @@ def signup():
                 return redirect(url_for('login'))
             except IntegrityError:
                 flash('Username already exists','danger')
+        flash_errors(form)
     return render_template('signup.html',form=form, background="homebackground")
 
 

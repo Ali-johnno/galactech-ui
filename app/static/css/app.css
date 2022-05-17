@@ -30,7 +30,7 @@ footer{
     width: 40vw;
     box-shadow: 0px 0px 5px 2px #4cbff5c0;
     margin: auto;
-    padding: 50px;
+    padding: 40px;
 }
 
 
@@ -40,7 +40,7 @@ footer{
     width: 40vw;
     box-shadow: 0px 0px 5px 2px #4cbff5c0;
     margin: auto;
-    padding: 50px;
+    padding: 35px;
 }
 
 .sign-up-form h2{
@@ -48,8 +48,9 @@ footer{
 }
 
 .loginlogo{
-    width: 6rem;
-    height: 6rem;    
+    width: 7rem;
+    height: 7rem;   
+    margin-bottom: 15px; 
 }
 
 #website_logo{
@@ -181,6 +182,13 @@ footer{
     width: 100%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+    animation: fadeIn 5s;
+}
+
+@keyframes fadeIn{
+    0% {opacity: 0;}
+    50% {opacity: 0.85;}
+    100% {opacity: 1;}
 }
 
 
@@ -676,8 +684,42 @@ table{
 }
 
 .try-again button{
-    font-size: 30px;
+    font-size: 23px;
     width: auto;
     height: auto;
     padding: auto;
+}
+
+.accent-id-p-1{
+    font-weight: 100;
+}
+
+.accent-id-p-2{
+    font-weight: 900;
+}
+
+.results-image img{
+    height: 200px;
+    width: 500px;
+}
+.signup-form-label{
+    font-weight: 100;
+}
+.signup-header, .login-header{
+    font-weight: 700;
+    color:#00406E;
+}
+
+.login-link{
+    padding-top: 15px;
+
+}
+
+.signin-btn-group button{
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.forget-password{
+    text-align: right !important;
 }

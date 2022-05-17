@@ -8,7 +8,7 @@
     <form action="{{ url_for('login') }}" method="post">
       {{ form.csrf_token }}
       <img class='loginlogo' src="{{url_for('static',filename='logo_website.png')}}"/>
-      <h2>LOGIN</h2>
+      <h2 class="login-header">LOGIN</h2>
       <div class="form-group">
         {{ form.username(class='form-control ', placeholder="Username") }}
       </div>
@@ -20,7 +20,7 @@
         <a href="#" >Forget Password?</a>
       </div>
      
-      <div class="text-center">
+      <div class="text-center signin-btn-group">
         <button type="submit" name="submit" class="btn btn-primary">  SIGN IN  </button>
         <p>Don't have an account? <a href="{{url_for('signup')}}">Sign Up</a></p>
       </div>

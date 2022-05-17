@@ -29,7 +29,7 @@
             </tr>
             {%for record in recordings%}
             <tr>
-                <td>{{record.id}}</td>
+                <td>{{loop.index}}</td>
                 <td>{{record.date.strftime('%m/%d/%Y')}}</td>
                 <td><audio controls><source src="{{url_for('getRecording',filename=record.recording)}}" type="audio/wav"></audio></td>
                 <td>{{record.accent}}</td>
