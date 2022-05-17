@@ -225,7 +225,7 @@ submit_btn.addEventListener("click", function(){
         data: formData,
         processData: false,
         contentType: false,
-        headers:{'Access-Control-Allow-Origin':'127.0.0.1'},
+        headers:{'Access-Control-Allow-Origin':'*'},
         success: function (response){
             console.log("audio file sent to flask");
             window.location.href = "upload";

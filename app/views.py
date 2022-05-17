@@ -76,7 +76,7 @@ def upload():
     # session['sessionaudio] is what contains the audio recording reference
     fin=single_file_preprocessing(session['sessionaudio'])
     print("predicting value")
-    argmax,percentages=rnnt.predict_val(np.reshape(fin,(1,15,1198)),1)
+    argmax,percentages=app.config['RNNT'].predict_val(np.reshape(fin,(1,15,1198)),1)
     if argmax[0]==1:
         accent='Trinidadian'.upper()
     else:

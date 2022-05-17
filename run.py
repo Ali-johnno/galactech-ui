@@ -48,15 +48,15 @@ if __name__ == "__main__":
     label=1
 
     build_data_gen=DataGenerator(np.array([sample_data]),np.array([label]),to_fit=True,batch_size=1, dim=encoder_input_shape)
-    global rnnt
+    
 
     ## compiling and fitting rnnt
-    rnnt=RNNT3(num_hidden_encoder, num_hidden_predictor, num_hidden_joiner, num_predictions, joiner_input_shape,predictor_input_shape,encoder_input_shape,num_encoder_dense,num_predictor_dense)
+    #RNNT=RNNT3(num_hidden_encoder, num_hidden_predictor, num_hidden_joiner, num_predictions, joiner_input_shape,predictor_input_shape,encoder_input_shape,num_encoder_dense,num_predictor_dense)
     opt = keras.optimizers.Adam(learning_rate=0.001)
-    rnnt.compile(optimizer=opt, loss='sparse_categorical_crossentropy', metrics=['accuracy'])
-    rnnt.fit(build_data_gen,epochs=1,verbose=2)
+    app.config['RNNT'].compile(optimizer=opt, loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+    app.config['RNNT'].fit(build_data_gen,epochs=1,verbose=2)
 
     #load weights from checkpoint file
-    rnnt.load_weights('supplement/cp_teststep_with64_predictor-epoch0001_acc0.562.ckpt')
+    app.config['RNNT'].load_weights('supplement/cp_teststep_with64_predictor-epoch0001_acc0.562.ckpt')
     print("RNNT model successfully loaded!! <! !>")
     app.run(debug=True, host="0.0.0.0", port=8080)
