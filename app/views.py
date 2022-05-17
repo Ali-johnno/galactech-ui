@@ -6,6 +6,7 @@ This file creates your application.
 """
 from email.mime import audio
 from logging import log
+from dataprocess import AudioPreProc
 
 import os
 from sqlalchemy import asc
@@ -141,6 +142,19 @@ def getRecording(filename):
     print(filename)
     root_dir = os.getcwd()
     return send_from_directory(os.path.join(root_dir, app.config['UPLOAD_FOLDER']),  filename)
+
+def single_file_preprocessing(sample_data):
+  (aud,sr) = AudioPreProc.open(sample_data)   
+  tot = AudioPreProc.rechannel((aud,sr), 1)
+  tot=AudioPreProc.pad_trunc(tot,12000)            
+  mfcc,hop=AudioPreProc.get_mfccs(tot)
+  
+  f0=AudioPreProc.get_fundamental_freq(tot,hop)
+  f0=f0.reshape((1,f0.shape[0]))
+  energy=AudioPreProc.get_energy(tot,hop)
+  fin=np.concatenate([mfcc,f0,energy])
+  return fin
+
 
 ###
 # The functions below should be applicable to all Flask apps.
