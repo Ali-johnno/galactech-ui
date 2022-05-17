@@ -7,6 +7,8 @@ This file creates your application.
 from email.mime import audio
 from logging import log
 from dataprocess import AudioPreProc
+import numpy as np
+#import run
 
 import os
 from sqlalchemy import asc
@@ -72,8 +74,15 @@ def upload():
             db.session.commit()
     # insert your code here
     # session['sessionaudio] is what contains the audio recording reference
+    fin=single_file_preprocessing(session['sessionaudio'])
+    print("predicting value")
+    argmax,percentages=rnnt.predict_val(np.reshape(fin,(1,15,1198)),1)
+    if argmax[0]==1:
+        accent='Trinidadian'.upper()
+    else:
+        accent = 'Jamaican'.upper()
     # thinking of creating a function called get file that gets the actual recording if the session variable doesnt do anything
-    accent = 'Trinidadian'.upper()
+    
     print(session['sessionaudio'])
     return render_template('results.html', accent=accent)
 
