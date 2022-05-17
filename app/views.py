@@ -6,6 +6,8 @@ This file creates your application.
 """
 from email.mime import audio
 from logging import log
+from dataprocess import AudioPreProc
+import numpy as np
 
 import os
 from sqlalchemy import asc
@@ -72,13 +74,34 @@ def upload():
     # insert your code here
     # session['sessionaudio] is what contains the audio recording reference
     # thinking of creating a function called get file that gets the actual recording if the session variable doesnt do anything
-    accent = 'Trinidadian'.upper()
     print(session['sessionaudio'])
+    root_dir = os.getcwd()
+    audio =  os.path.join(root_dir, app.config['UPLOAD_FOLDER'],  session['sessionaudio'])
+    fin=single_file_preprocessing(audio)
+    print("predicting value")
+    argmax,percentages=app.config['RNNT'].predict_val(np.reshape(fin,(1,15,1198)),1)
+    if argmax[0]==1:
+        accent='Trinidadian'.upper()
+    else:
+        accent = 'Jamaican'.upper()
+    
     return render_template('results.html', accent=accent)
 
 def convert_files():
     audioFile = 'idk'
     return audioFile
+
+def single_file_preprocessing(sample_data):
+  (aud,sr) = AudioPreProc.open(sample_data)   
+  tot = AudioPreProc.rechannel((aud,sr), 1)
+  tot=AudioPreProc.pad_trunc(tot,12000)            
+  mfcc,hop=AudioPreProc.get_mfccs(tot)
+  
+  f0=AudioPreProc.get_fundamental_freq(tot,hop)
+  f0=f0.reshape((1,f0.shape[0]))
+  energy=AudioPreProc.get_energy(tot,hop)
+  fin=np.concatenate([mfcc,f0,energy])
+  return fin
 
 @app.route('/loading',methods=['GET'])
 @login_required
