@@ -1,8 +1,13 @@
 """
-Flask Documentation:     http://flask.pocoo.org/docs/
-Jinja2 Documentation:    http://jinja.pocoo.org/2/documentation/
-Werkzeug Documentation:  http://werkzeug.pocoo.org/documentation/
-This file creates your application.
+Project: Capstone Group Work
+Company: Galactech
+System: Accent Identification System
+
+Group Members:
+* Kalia-Lee Rodney
+* Alexandria Burnett
+* Aaliyah Johnston
+* Jamar Lee
 """
 from email.mime import audio
 from logging import log
@@ -24,39 +29,106 @@ from app.models import UserProfile, Recordings
 from .forms import SignUpForm, LoginForm
 from mimetypes import guess_extension
 from sqlalchemy.exc import  IntegrityError
-###
-# Routing for your application.
-###
 
+
+
+### User credentials checked and they are allowed access into the system
+@app.route('/', methods=['POST', 'GET'])
+def login():
+    form= LoginForm()
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']    
+        user = db.session.query(UserProfile).filter(UserProfile.username == username).first()
+        if user is not None and check_password_hash(user.password, password):
+            login_user(user)   
+            flash('Successfully Logged in','success')
+            session['username'] = username
+            return redirect(url_for('home'))  # if login is successful user is redirected to home page
+        flash('Incorrect Credentials', 'danger')
+        return redirect(url_for('login'))  #if login is unsuccessful they are redirected to the login page
+    return render_template('login.html', form=form, background="homebackground")
+
+
+### user enters their credentials that is stored in POSTGRESQL
+@app.route('/signup', methods=['GET','POST'])
+def signup():
+    form= SignUpForm()
+    if request.method=='POST':
+        if request.form['password'] == request.form['password_reenter']:
+            try:
+                person = UserProfile(request.form['fullname'], request.form['username'],request.form['email'],request.form['dateofbirth'],request.form['password'])
+                db.session.add(person)
+                db.session.commit()
+                return redirect(url_for('login'))
+            except IntegrityError: #catches "username already exists" error from database - as usernames must be unique
+                flash('Username already exists','danger')
+    return render_template('signup.html',form=form, background="homebackground")
+
+
+### logs the user out
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    session.pop('username',None)
+    flash('You were logged out', 'success')
+    return redirect(url_for('login'))
+
+### displays the home page
 @app.route('/home')
 @login_required
 def home():
     return render_template('home.html', background="homebackground")
 
     
+### Displays user information as well as the last 5 recordings they submitted
 @app.route('/profile')
 @login_required
 def profile():
     username = session['username']
-    user = db.session.query(UserProfile).filter(UserProfile.username == username).first()
-    recordings = db.session.query(Recordings).filter(Recordings.username == username).order_by(asc(Recordings.date)).all()[-5:]
+    user = db.session.query(UserProfile).filter(UserProfile.username == username).first() #gets User Details
+    recordings = db.session.query(Recordings).filter(Recordings.username == username).order_by(asc(Recordings.date)).all()[-5:] #shows the last 5 recordings in a database for a specific user
     return render_template('profile.html', user=user, recordings=recordings)
 
+
+### Gets a recording from the uploads folder
+@app.route('/recording/<filename>')
+@login_required
+def getRecording(filename):
+    print(filename)
+    root_dir = os.getcwd()
+    return send_from_directory(os.path.join(root_dir, app.config['UPLOAD_FOLDER']),  filename)
+
+
+### displays information about the software and the team members
 @app.route('/about/')
 @login_required
 def about():
     return render_template('about.html')
 
+
+### interface for the accent identification system
 @app.route('/identifier', methods=['POST','GET'])
 @login_required
 def identifier():
     return render_template('accentpage.html')
 
+
+### deletes an uploaded audio file or live recording
+@app.route('/delete-audio')
+def deleteAudio():
+    flash('Recording Deleted','success')
+    return redirect(url_for('identifier'))
+
+### uploads the uploaded or live recording to the database. accepts audio from ajax post request
+### see app.js
 @app.route('/upload', methods=['POST', 'GET'])
 @login_required
 def upload():
     if request.method == 'POST':
         print("received")
+        
         if 'audio_file' in request.files:
             file = request.files['audio_file']
             extname = guess_extension(file.mimetype)
@@ -65,28 +137,17 @@ def upload():
             print(extname)
             x = ''.join(random.choices(string.ascii_letters + string.digits, k=7))
             session['sessionaudio'] = f'audio_record_{x}{extname}'
+            print(x)
             filename = secure_filename(f'audio_record_{x}{extname}')
             dst = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            recording = Recordings(session['username'],f'audio_record_{x}{extname}',"")
+            db.session.add(recording)
+            db.session.commit()
             file.save(dst)
-    # prediction code here
-    root_dir = os.getcwd()
-    audio =  os.path.join(root_dir, app.config['UPLOAD_FOLDER'],  session['sessionaudio'])
-    fin=single_file_preprocessing(audio)
-    print("predicting value")
-    argmax,percentages=app.config['RNNT'].predict_val(np.reshape(fin,(1,15,1198)),1)
-    if argmax[0]==1:
-        accent='Trinidadian'.upper()
-    else:
-        accent = 'Jamaican'.upper()
-    recording = Recordings(session['username'], session['sessionaudio'],accent)
-    db.session.add(recording)
-    db.session.commit()
-    return render_template('results.html', accent=accent)
+    return render_template('accentpage.html')
 
-def convert_files():
-    audioFile = 'idk'
-    return audioFile
 
+### preprocessor
 def single_file_preprocessing(sample_data):
   (aud,sr) = AudioPreProc.open(sample_data)   
   tot = AudioPreProc.rechannel((aud,sr), 1)
@@ -99,89 +160,32 @@ def single_file_preprocessing(sample_data):
   fin=np.concatenate([mfcc,f0,energy])
   return fin
 
+
+### loading page
 @app.route('/loading',methods=['GET'])
 @login_required
 def loading():
     return render_template('loading.html')
 
+
+### results page showing accent prediction
 @app.route('/results', methods=['GET'])
 @login_required
 def results():
-    accent = "Jamaican".upper()
-    return render_template('results.html', accent=accent)
-
-@app.route('/', methods=['POST', 'GET'])
-def login():
-    form= LoginForm()
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']    
-        user = db.session.query(UserProfile).filter(UserProfile.username == username).first()
-        if user is not None and check_password_hash(user.password, password):
-            login_user(user)   
-            flash('Successfully Logged in','success')
-            session['username'] = username
-            return redirect(url_for('home'))  # they should be redirected to a secure-page route instead
-        flash('Incorrect Credentials', 'danger')
-        return redirect(url_for('login'))  
-    return render_template('login.html', form=form, background="homebackground")
-
-
-@app.route('/signup', methods=['GET','POST'])
-def signup():
-    form= SignUpForm()
-    if request.method=='POST':
-        if request.form['password'] == request.form['password_reenter']:
-            try:
-                person = UserProfile(request.form['fullname'], request.form['username'],request.form['email'],request.form['dateofbirth'],request.form['password'])
-                db.session.add(person)
-                db.session.commit()
-                return redirect(url_for('login'))
-            except IntegrityError:
-                flash('Username already exists','danger')
-    return render_template('signup.html',form=form, background="homebackground")
-
-
-
-@app.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    session.pop('username',None)
-    flash('You were logged out', 'success')
-    return redirect(url_for('login'))
-
-
-@app.route('/delete-audio')
-def deleteAudio():
-    flash('Recording Deleted','success')
-    return redirect(url_for('identifier'))
-
-@app.route('/recording/<filename>')
-@login_required
-def getRecording(filename):
-    print(filename)
+    # prediction code here
     root_dir = os.getcwd()
-    return send_from_directory(os.path.join(root_dir, app.config['UPLOAD_FOLDER']),  filename)
-
-###
-# The functions below should be applicable to all Flask apps.
-###
-
-# Flash errors from the form if validation fails
-def flash_errors(form):
-    for field, errors in form.errors.items():
-        for error in errors:
-            flash(u"Error in the %s field - %s" % (
-                getattr(form, field).label.text,
-                error
-), 'danger')
-
-@app.route('/<file_name>.txt')
-def send_text_file(file_name):
-    """Send your static text file."""
-    file_dot_text = file_name + '.txt'
-    return app.send_static_file(file_dot_text)
+    last_rec = db.session.query(Recordings).order_by(Recordings.id)[-1]
+    audio =  os.path.join(root_dir, app.config['UPLOAD_FOLDER'],  last_rec.recording)
+    fin=single_file_preprocessing(audio)
+    print("predicting value")
+    argmax,percentages=app.config['RNNT'].predict_val(np.reshape(fin,(1,15,1198)),1)
+    if argmax[0]==1:
+        accent='Trinidadian'.upper()
+    else:
+        accent = 'Jamaican'.upper()
+    last_rec.accent = accent
+    db.session.commit()
+    return render_template('results.html', accent=accent)
 
 
 @app.after_request

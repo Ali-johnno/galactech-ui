@@ -20,25 +20,25 @@ var recording = document.getElementsByClassName("recording")[0];
 var recorder = document.getElementsByClassName("recorder")[0];
 var timer = document.getElementById("timer");
 
-//add events to those 3 buttons 
+ 
 const uploadURL = "/upload";
 const dropArea = document.querySelector(".drag-and-drop"),
 dragText = dropArea.querySelector("header"),
 button = dropArea.querySelector("button"),
 drag_input = dropArea.querySelector("input");
-let file;
-let timeout;
+
 
 var drag_drop = document.getElementsByClassName("drag-and-drop")[0];
 var uploaded_file = document.getElementsByClassName("uploaded-audio")[0];
+
 var removeAudioTrigger = document.getElementById("remove-audio");
 var deleteModal = document.getElementById("delete-modal");
 var cancelRemoveAudio = document.getElementById("cancel-delete-btn");
 var closeModal = document.getElementById("close-modal");
 var removeMphAudioTrigger = document.getElementById("delete-microphone-recording");
 
-var js_flash = document.getElementById("js-flash");
-
+let file;
+let timeout;
 
 button.onclick = ()=>{
     drag_input.click(); //if user click on the button then the input also clicked
@@ -72,7 +72,7 @@ dropArea.addEventListener("drop", (event)=>{
     showFile(); //calling function
 });
 
-
+// shows the file that was dragged or dropped on screen
 function showFile(){
 let fileType = file.type; //getting selected file type
 let validExtensions = ["audio/wav"]; 
@@ -86,26 +86,25 @@ if(validExtensions.includes(fileType) &&  (size < 25)){ //if user selected file 
     addRecording(file);
     }
     error_div.classList.add("d-none");
-    changeFileDisplay();
+    changeFileDisplay(); // change the display of the screen
     document.getElementsByClassName("file-name")[0].innerHTML = file.name;
-    
     fileReader.readAsDataURL(file);
 } else {
-    
+    // shows error message when file size is too big or incorrect format
     error_div.classList.remove("d-none");
     if (size > 25){
         console.log("File size too big! File must be 25 MB or smaller");
         error_div.innerHTML = "File size too big! File must be 25 MB or smaller";
     } else {
         console.log("File must be a wav file!");
-        error_div.innerHTML = "File must be audio or video file!"
+        error_div.innerHTML = "File must be a wav file!"
     }
     dropArea.classList.remove("active");
     dragText.textContent = "Drag & Drop to Upload File";
 }
 }
 
-
+// changes page display once a file has been dragged and dropped
 function changeFileDisplay(){
     recording.classList.remove('d-none');
     recorder.classList.add('d-none');
@@ -121,8 +120,7 @@ function changeFileDisplay(){
 
 
 
-
-
+//add events to record, stop and submit button
 recordButton.addEventListener("click", startRecording);
 
 
@@ -190,25 +188,30 @@ function stopRecording() {
     //tell the recorder to stop the recording 
     rec.stop(); //stop microphone access 
     gumStream.getAudioTracks()[0].stop();
-    //create the wav blob and pass it on to createDownloadLink 
+    // change the display of the page
     submit_btn.classList.add('microphone');
     timer.classList.add("d-none");
     submit_audio.classList.remove("d-none");
     recording.classList.remove("d-none");
     removeMphAudioTrigger.classList.remove("d-none");
+    //create the wav blob and pass it on to createDownloadLink
     rec.exportWAV(createDownloadLink);
 }
 
 function createDownloadLink(blob) {
-    addRecording(blob);
+    addRecording(blob); //adds recording to the page for preview
     microphone_blob = blob;
 };
 
 
 submit_btn.addEventListener("click", function(){
     console.log("submit");
+
+    // loading page while ajax request is sent and recording is processed
     loading_page = document.getElementById('loading-page');
     loading_page.classList.remove('d-none');
+
+    // creates formData object with blob that is sent in the post request body
     let formData = new FormData();
     if (submit_btn.classList.contains("drag-or-browse") === true){
         console.log("drag or browse selected");
@@ -226,12 +229,12 @@ submit_btn.addEventListener("click", function(){
         contentType: false,
         success: function (response){
             console.log("audio file sent to flask");
-            window.location.href = "upload";
+            window.location.href = "results";
         }
     });
 });
 
-
+// creates a list of audio recording(s) which allow the user to preview their most recent recording
 function addRecording(url){
     var url = URL.createObjectURL(url);
     var recordingsList = document.getElementById('recordingsList');
@@ -244,6 +247,8 @@ function addRecording(url){
     recordingsList.appendChild(li);
 };
 
+// delete modal javascript trigger
+// delete modal pops up on click
 removeAudioTrigger.addEventListener("click", function(e){
     e.preventDefault();
     deleteModal.classList.remove("d-none");
@@ -254,6 +259,8 @@ removeMphAudioTrigger.addEventListener("click", function(e){
     deleteModal.classList.remove("d-none");
 });
 
+// delete modal cancel or close javascript trigger
+// delete modal closes on click of close and cancel buttons
 cancelRemoveAudio.addEventListener("click", function(e){
     e.preventDefault();
     deleteModal.classList.add("d-none");
@@ -264,14 +271,12 @@ closeModal.addEventListener("click", function(e){
     deleteModal.classList.add("d-none");
 });
 
-window.setTimeout(function() {
-    $(".alert").fadeTo(100, 0).slideUp(100, function(){
-        $(this).remove(); 
-    });
-}, 4000);
 
+// 1 minute long timer thats shows how long a recording has been going for
 function recording_timer(){
     
+    // if the user presses the stop button before the timer reaches one minute
+    // timer stops running in background
     if (JSON.stringify(document.getElementById("submit")) != "null"){
         console.log("stop button stopped timer");
         clearInterval(timeout);
@@ -303,7 +308,13 @@ function recording_timer(){
         }
     }
     
-
     document.getElementById("timer").innerHTML = "<h1>" + min + ":" + sec + "</h1>";
     setTimeout(recording_timer, 1000);
 }
+
+// flask flash messages clear off screen after a few seconds
+window.setTimeout(function() {
+    $(".alert").fadeTo(100, 0).slideUp(100, function(){
+        $(this).remove(); 
+    });
+}, 4000);
