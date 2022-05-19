@@ -8,7 +8,7 @@ identifies each accent as Trinidadian.
 
 # TEAM MEMBERS
 
-* Kalia Lee Rodney
+* Kalia-Lee Rodney
 * Alexandria Burnett
 * Aaliyah Johnston
 * Jamar Lee
