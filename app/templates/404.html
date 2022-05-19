@@ -5,9 +5,16 @@
 {% block css %}
 <style type="text/css">
   body{
-    padding-top: 40px;
+    padding-top: 60px;
   }
-  h1, p{
+  img{
+    height: 20rem;
+    width: 35rem;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+  }
+  p{
     text-align:center;
   }
   h1{
@@ -18,11 +25,21 @@
     font-size:24px;
     margin:15px 0;
   }
+
+  p.notfound-m1{
+    font-weight: 900;
+    color: #00406E;
+  }
+
+  p.notfound-backhome{
+    font-weight: 100;
+    color: #00406E;
+  }
 </style>
 {% endblock %}
 
 {% block main %}
-<h1>404</h1>
-<p>That page doesn't even exist.</p>
-<p>Why don't you just <a href="{{ url_for('home') }}">go back home</a>?</p>
+<img src="{{url_for('static', filename='404.png')}}">
+<p class="notfound-m1">WE DONT HAVE THAT PAGE.</p>
+<p class="notfound-backhome">Why don't you let us take you <a href="{{ url_for('home') }}">home</a>?</p>
 {% endblock %}
