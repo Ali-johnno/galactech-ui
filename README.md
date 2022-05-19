@@ -1,5 +1,10 @@
 # GALACTECH ACCENT IDENTIFICATION SYSTEM
-
+The Galactech Identification System is a revolutionary system that makes use of a Recurrent Neural Network Transducer
+which uses the feature modeling beforehand concept to give you an pproximation of the accent that
+is in the audio input. It uses a trained neural network model that will take your audio as well as 
+run it through its model that extracts mel-frequency cepstral coefficient, fundamental frequencies and energy
+to gives you the predicted accent that it has identified. Our system however has an accuracy of 56.25% and 
+identifies each accent as Trinidadian.
 
 # TEAM MEMBERS
 
